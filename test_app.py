@@ -5,7 +5,7 @@ from bson import ObjectId
 import os
 from pymongo import MongoClient
 
-DB_URI = os.getenv("MONGO_URI", "mongodb+srv://hadolesarvesh031:bU48XDP07sqVLnAJ@todoflaskmongodb.jqefh.mongodb.net/?retryWrites=true&w=majority&appName=todoflaskmongodb")
+DB_URI = os.getenv("MONGO_URI", "")
 DB_NAME = os.getenv("DB_NAME", "mymongodb")
 
 client = MongoClient(DB_URI)
