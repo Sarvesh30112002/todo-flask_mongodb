@@ -7,3 +7,4 @@ bson
 pymongo
 pymongo[tls,srv]
 dnspython
+gunicorn
