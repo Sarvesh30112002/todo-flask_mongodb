@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ t }}</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='assets/style.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container my-4">
+        <h1 class="text-center text-primary">{{ h }}</h1>
+
+        <!-- Navigation Menu -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light rounded">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link {{ a1 }}" href="/list">All</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ a2 }}" href="/uncompleted">Uncompleted</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ a3 }}" href="/completed">Completed</a>
+                </li>
+            </ul>
+        </nav>
+
+        <hr />
+
+        {% if todos[0] %}
+        <!-- Search Section -->
+        <form action="/search" method="GET" class="d-flex justify-content-end mb-3">
+            <select name="refer" class="form-select me-2" style="width: 150px;" required>
+                <option value="name">Task Name</option>
+                <option value="pr">Priority</option>
+            </select>
+            <input type="text" name="key" class="form-control me-2" placeholder="Search Task" size="15" required />
+            <button class="btn btn-outline-primary" type="submit">Search</button>
+        </form>
+
+        <!-- To-Do List Table -->
+        <table class="table table-bordered table-hover text-center">
+            <thead class="table-primary">
+                <tr>
+                    <th>Status</th>
+                    <th>Task Name</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Priority</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for todo in todos %}
+                <tr>
+                    <td>
+                        <a href="./done?_id={{ todo['_id'] }}">
+                            <img src="static/images/{{ todo['done'] }}.png" alt="Toggle Status" style="width: 20px;">
+                        </a>
+                    </td>
+                    <td>{{ todo["name"] }}</td>
+                    <td>{{ todo["desc"] }}</td>
+                    <td>{{ todo["date"] }}</td>
+                    <td>{{ todo["pr"] }}</td>
+                    <td>
+                        <a href="./update?_id={{ todo['_id'] }}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="./remove?_id={{ todo['_id'] }}" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Delete All Tasks -->
+        <div class="text-center mt-3">
+            <a href="/deleteall" class="btn btn-danger btn-lg" onclick="return confirm('Are you sure you want to delete all tasks?');">Delete All Tasks</a>
+        </div>
+
+        {% else %}
+        <h4 class="text-center text-secondary">No Tasks in the List!</h4>
+        {% endif %}
+
+        <!-- Add Task Form -->
+        <div class="card mt-4">
+            <div class="card-header text-white bg-primary">Add a Task</div>
+            <div class="card-body">
+                <form action="/action" method="POST">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Task Name</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter Task Name" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="desc" class="form-label">Description</label>
+                        <textarea class="form-control" id="desc" name="desc" rows="2" placeholder="Enter Task Description" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="date" class="form-label">Date</label>
+                        <input type="date" class="form-control" id="date" name="date" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="pr" class="form-label">Priority</label>
+                        <select class="form-select" id="pr" name="pr" required>
+                            <option value="LOW">Low</option>
+                            <option value="MEDIUM">Medium</option>
+                            <option value="HIGH">High</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100">Add Task</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

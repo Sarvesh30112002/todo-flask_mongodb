@@ -1,0 +1,9 @@
+Flask
+gunicorn
+Jinja2
+MarkupSafe
+Werkzeug
+bson
+pymongo
+pymongo[tls,srv]
+dnspython
