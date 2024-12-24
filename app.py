@@ -15,7 +15,7 @@ APP_HEADING = "TODO APP"
 
 
 # Environment Variables for Secure Database URI
-DB_URI = os.getenv("MONGO_URI", "mongodb+srv://hadolesarvesh031:bU48XDP07sqVLnAJ@todoflaskmongodb.jqefh.mongodb.net/?retryWrites=true&w=majority&appName=todoflaskmongodb")
+DB_URI = os.getenv("MONGO_URI", "")
 DB_NAME = os.getenv("DB_NAME", "mymongodb")
 
 # Database Setup
